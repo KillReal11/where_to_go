@@ -3,7 +3,7 @@ from django.db import models
 print("Запущен файл models.py")
 
 
-class Places(models.Model):
+class Place(models.Model):
     title = models.CharField('Название', max_length=200)
     description_short = models.TextField('Краткое описание', blank=True)
     description_long = models.TextField('Полное описание', blank=True)
@@ -17,3 +17,30 @@ class Places(models.Model):
         ordering = ['title']
         verbose_name = 'место'
         verbose_name_plural = 'места'
+
+
+class Image(models.Model):
+    title = models.ForeignKey(
+        'Place',
+        on_delete=models.CASCADE,
+        verbose_name="место, где сделана картинка",
+        related_name='images',
+    )
+    image = models.ImageField(
+        'Картинка',
+        upload_to='places_images/',
+        null=True,
+        blank=True)
+    position_number = models.IntegerField(
+        'Номер картинки в расположении',
+        null=True,
+        blank=True
+        )
+
+    def __str__(self):
+        return f'{self.position_number} {self.title}'
+
+    class Meta:
+        ordering = ['title', 'position_number']
+        verbose_name = 'картинка'
+        verbose_name_plural = 'картинки'
