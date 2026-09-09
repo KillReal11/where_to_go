@@ -28,7 +28,7 @@ class Image(models.Model):
     )
     image = models.ImageField(
         'Картинка',
-        upload_to='places_images/',
+        upload_to='media/',
         null=True,
         blank=True)
     position_number = models.IntegerField(
