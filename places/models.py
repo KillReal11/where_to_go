@@ -4,6 +4,7 @@ print("Запущен файл models.py")
 
 
 class Place(models.Model):
+    place_id = models.CharField('Уникальный идентификатор локации', max_length=50)
     title = models.CharField('Название', max_length=200)
     description_short = models.TextField('Краткое описание', blank=True)
     description_long = models.TextField('Полное описание', blank=True)
@@ -26,16 +27,17 @@ class Image(models.Model):
         verbose_name="место, где сделана картинка",
         related_name='images',
     )
-    image = models.ImageField(
+    file = models.ImageField(
         'Картинка',
         upload_to='media/',
         null=True,
-        blank=True)
+        blank=True
+    )
     position_number = models.IntegerField(
         'Номер картинки в расположении',
         null=True,
         blank=True
-        )
+    )
 
     def __str__(self):
         return f'{self.position_number} {self.title}'
