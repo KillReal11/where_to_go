@@ -1,25 +1,33 @@
 from django.contrib import admin
 from places.models import Place, Image
 from django.utils.html import format_html
+from adminsortable2.admin import SortableTabularInline, SortableAdminMixin
 
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableTabularInline):
     model = Image
     extra = 1
     readonly_fields = ['preview']
     fields = ["file", "preview", "position_number"]
 
-    def preview(self, place):
+    def preview(self, image):
         return format_html(
-            '<img src="{url}" style="max-height: 100px; margin: 5px;"/>',
-            url=place.file.url,
+            '<img src="{url}" style="max-height: 200px; margin: 5px;"/>',
+            url=image.file.url,
         )
 
 
-
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
+class SortablePlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     inlines = [ImageInline]
 
 
-admin.site.register(Image)
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    readonly_fields = ['preview']
+
+    def preview(self, Image):
+        return format_html(
+            '<img src="{url}" style="max-height: 200px; margin: 5px;"/>',
+            url=Image.file.url,
+        )

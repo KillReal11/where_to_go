@@ -35,6 +35,7 @@ class Image(models.Model):
     )
     position_number = models.IntegerField(
         'Номер картинки в расположении',
+        default=0,
         null=True,
         blank=True
     )
@@ -43,6 +44,6 @@ class Image(models.Model):
         return f'{self.position_number} {self.title}'
 
     class Meta:
-        ordering = ['title', 'position_number']
+        ordering = ['position_number']
         verbose_name = 'картинка'
         verbose_name_plural = 'картинки'
