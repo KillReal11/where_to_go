@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 
 print("Запущен файл models.py")
 
@@ -7,7 +8,7 @@ class Place(models.Model):
     place_id = models.CharField('Уникальный идентификатор локации', max_length=50)
     title = models.CharField('Название', max_length=200)
     description_short = models.TextField('Краткое описание', blank=True)
-    description_long = models.TextField('Полное описание', blank=True)
+    description_long = HTMLField('Полное описание', blank=True)
     latitude = models.FloatField('Широта')
     longitude = models.FloatField('Долгота')
 
