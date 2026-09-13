@@ -5,12 +5,13 @@
 Учебный проект курса [Django на Devman](https://dvmn.org/modules/django/). Бэкенд на Django отдаёт точки в формате GeoJSON и подробности по каждому месту в JSON; фронтенд (Leaflet + сайдбар) рисует карту и всплывающие карточки.
 
 ## Что внутри
-
+ 
 * Django 5.2
 * SQLite (по умолчанию для разработки)
 * [django-admin-sortable2](https://github.com/jrief/django-admin-sortable2) — сортировка фотографий в админке перетаскиванием
 * [django-tinymce](https://github.com/jazzband/django-tinymce) — WYSIWYG-редактор для полного описания места
 * Pillow — обработка загружаемых изображений
+* [Requests](https://requests.readthedocs.io/) — загрузка данных о местах и картинок по HTTP в management-команде `load_place`
 * Leaflet + [leaflet-sidebar](https://github.com/turbo87/leaflet-sidebar) на фронтенде
 
 ## Как запустить проект локально
@@ -73,6 +74,28 @@
 
 Отдельный раздел **Картинки** в админке нужен только для отладки и не предназначен для повседневной работы с контентом — добавлять и менять фотографии удобнее прямо со страницы места.
 
+## Массовая загрузка мест из JSON
+ 
+Если мест много (например, десятки), заполнять их вручную через админку неудобно — для этого есть management-команда `load_place`. Она принимает одну или несколько прямых ссылок на JSON-файлы с описанием места и создаёт (или обновляет, если место с таким `place_id` уже есть) запись `Place` вместе со всеми фотографиями.
+ 
+```bash
+python manage.py load_place https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/places/moscow_legends.json
+```
+ 
+Можно передать сразу несколько ссылок за один вызов:
+```bash
+python manage.py load_place url1.json url2.json url3.json
+```
+ 
+Важно передавать именно "сырую" ссылку на содержимое файла, а не адрес страницы просмотра файла (`.../blob/...`) — иначе команда получит HTML вместо JSON и упадёт с ошибкой разбора. Получить такую ссылку можно вручную — открыть файл на GitHub и нажать кнопку **Raw** — либо получить сразу список ссылок на все файлы папки `places` через GitHub API:
+```
+https://api.github.com/repos/devmanorg/where-to-go-places/contents/places
+```
+Ответ — JSON-список файлов, у каждого есть поле `download_url` с готовой прямой ссылкой.
+ 
+Готовый набор тестовых данных лежит в репозитории [devmanorg/where-to-go-places](https://github.com/devmanorg/where-to-go-places).
+ 
+`place_id` для каждого места команда определяет по имени JSON-файла (без расширения), поэтому это поле должно быть уникальным — при повторном запуске с тем же файлом место не задублируется, а обновится.
 
 ## Цели проекта
 

@@ -5,8 +5,8 @@ print("Запущен файл models.py")
 
 
 class Place(models.Model):
-    place_id = models.CharField('Уникальный идентификатор локации', max_length=50)
-    title = models.CharField('Название', max_length=200)
+    place_id = models.CharField('Уникальный идентификатор локации', max_length=200, unique=True)
+    title = models.CharField('Название', max_length=100)
     description_short = models.TextField('Краткое описание', blank=True)
     description_long = HTMLField('Полное описание', blank=True)
     latitude = models.FloatField('Широта')
