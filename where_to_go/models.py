@@ -1,8 +1,6 @@
 from django.db import models
 from tinymce.models import HTMLField
 
-print("Запущен файл models.py")
-
 
 class Place(models.Model):
     place_id = models.CharField('Уникальный идентификатор локации', max_length=200, unique=True)

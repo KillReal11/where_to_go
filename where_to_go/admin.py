@@ -1,5 +1,5 @@
 from django.contrib import admin
-from places.models import Place, Image
+from where_to_go.models import Place, Image
 from django.utils.html import format_html
 from adminsortable2.admin import SortableTabularInline, SortableAdminMixin
 

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PlacesConfig(AppConfig):
+class WhereToGoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'places'
+    name = 'where_to_go'

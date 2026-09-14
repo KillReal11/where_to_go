@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'places.apps.PlacesConfig',
+    'where_to_go.apps.WhereToGoConfig',
     'adminsortable2',
     'tinymce',
 ]

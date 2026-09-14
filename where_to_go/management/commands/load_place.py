@@ -4,7 +4,7 @@ from urllib.parse import unquote, urlsplit
 
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
-from places.models import Place, Image
+from where_to_go.models import Place, Image
 
 
 class Command(BaseCommand):

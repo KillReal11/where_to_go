@@ -5,7 +5,7 @@ from django.templatetags.static import static
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 
-from places.models import Place, Image
+from where_to_go.models import Place, Image
 from mysite import settings
 
 
