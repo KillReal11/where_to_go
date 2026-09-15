@@ -37,8 +37,8 @@ def load_place(place_json_url):
         place_id=place_id,
         defaults={
             "title": place_fields["title"],
-            "description_short": place_fields["description_short"],
-            "description_long": place_fields["description_long"],
+            "short_description": place_fields["description_short"],
+            "long_description": place_fields["description_long"],
             "latitude": place_fields["coordinates"]["lat"],
             "longitude": place_fields["coordinates"]["lng"]
         }
