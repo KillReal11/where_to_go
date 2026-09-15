@@ -25,18 +25,13 @@ class Command(BaseCommand):
 
 
 def load_place(place_json_url):
-    path = urlsplit(place_json_url).path
-    filename = unquote(os.path.basename(path))
-    place_id, _ = os.path.splitext(filename)
-
     response = requests.get(place_json_url)
     response.raise_for_status()
     place_fields = response.json()
 
     place, created = Place.objects.update_or_create(
-        place_id=place_id,
+        title=place_fields["title"],
         defaults={
-            "title": place_fields["title"],
             "short_description": place_fields["description_short"],
             "long_description": place_fields["description_long"],
             "latitude": place_fields["coordinates"]["lat"],
