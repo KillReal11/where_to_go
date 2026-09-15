@@ -49,7 +49,7 @@ def load_place(place_json_url):
     for position_number, image_url in enumerate(image_urls):
         response_image = requests.get(image_url)
         response_image.raise_for_status()
-        image = Image(title=place, position_number=position_number)
+        image = Image(place=place, position_number=position_number)
         image_filename = os.path.basename(urlsplit(image_url).path)
 
         image.file.save(
