@@ -22,7 +22,7 @@ class Image(models.Model):
     place = models.ForeignKey(
         'Place',
         on_delete=models.CASCADE,
-        verbose_name="локация картинки",
+        verbose_name='локация картинки',
         related_name='images',
     )
     file = models.ImageField(
@@ -39,7 +39,7 @@ class Image(models.Model):
         verbose_name = 'картинка'
         verbose_name_plural = 'картинки'
         indexes = [
-            models.Index(fields=["position_number"]),
+            models.Index(fields=['position_number']),
         ]
 
     def __str__(self):

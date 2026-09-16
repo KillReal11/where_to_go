@@ -1,12 +1,9 @@
-from django.http import HttpResponse, JsonResponse
-from django.template import loader
+from django.http import JsonResponse
 from django.shortcuts import render
-from django.templatetags.static import static
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 
 from where_to_go.models import Place, Image
-from mysite import settings
 
 
 def get_object_by_id(request, id):
@@ -17,13 +14,13 @@ def get_object_by_id(request, id):
         path = str(image.file.url)
         paths.append(path)
     details_url = {
-        "title": place.title,
-        "imgs": paths,
-        "description_short":  place.short_description,
-        "description_long":  place.long_description,
-        "coordinates": {
-            "lng": place.longitude,
-            "lat": place.latitude
+        'title': place.title,
+        'imgs': paths,
+        'description_short':  place.short_description,
+        'description_long':  place.long_description,
+        'coordinates': {
+            'lng': place.longitude,
+            'lat': place.latitude
         }
     }
     return JsonResponse(
@@ -39,24 +36,22 @@ def index(request):
     for place in places:
         print(place.title)
         feature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [place.longitude, place.latitude]
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [place.longitude, place.latitude]
             },
-            "properties": {
-                "title": place.title,
-                "placeId": place.pk,
-                "detailsUrl": reverse("place_detail", args=[place.pk])
+            'properties': {
+                'title': place.title,
+                'placeId': place.pk,
+                'detailsUrl': reverse('place_detail', args=[place.pk])
             }
         }
         features.append(feature)
     print(features)
 
     places_on_page = {
-      "type": "FeatureCollection",
-      "features": features
+      'type': 'FeatureCollection',
+      'features': features
     }
     return render(request, 'index.html', context={'places_on_page': places_on_page})
-
-

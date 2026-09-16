@@ -8,18 +8,18 @@ from where_to_go.models import Place, Image
 
 
 class Command(BaseCommand):
-    help = "Load places from JSON files"
+    help = 'Load places from JSON files'
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "json_url",
-            nargs="+",
+            'json_url',
+            nargs='+',
             type=str,
-            help="URL of the raw JSON file containing place data"
+            help='URL of the raw JSON file containing place data'
         )
 
     def handle(self, *args, **options):
-        for place_json_url in options["json_url"]:
+        for place_json_url in options['json_url']:
             place = load_place(place_json_url)
             self.stdout.write(self.style.SUCCESS(place.title))
 
@@ -30,12 +30,12 @@ def load_place(place_json_url):
     place_fields = response.json()
 
     place, created = Place.objects.update_or_create(
-        title=place_fields["title"],
+        title=place_fields['title'],
         defaults={
-            "short_description": place_fields["description_short"],
-            "long_description": place_fields["description_long"],
-            "latitude": place_fields["coordinates"]["lat"],
-            "longitude": place_fields["coordinates"]["lng"]
+            'short_description': place_fields['description_short'],
+            'long_description': place_fields['description_long'],
+            'latitude': place_fields['coordinates']['lat'],
+            'longitude': place_fields['coordinates']['lng']
         }
     )
 
