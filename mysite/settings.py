@@ -24,10 +24,12 @@ INSTALLED_APPS = [
     'where_to_go.apps.WhereToGoConfig',
     'adminsortable2',
     'tinymce',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,3 +110,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'toolbar': 'undo redo | bold italic underline | alignleft aligncenter alignright | '
                'bullist numlist | link image | code',
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

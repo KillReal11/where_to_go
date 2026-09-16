@@ -12,7 +12,7 @@ class ImageInline(SortableTabularInline):
 
     def preview(self, image):
         return format_html(
-            '<img src="{url}" style="max-height: 200px; margin: 5px;"/>',
+            '<img src="{url}" style="max-height: 200px; max-width: 200px; margin: 5px;"/>',
             url=image.file.url,
         )
 
