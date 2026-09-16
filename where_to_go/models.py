@@ -3,7 +3,7 @@ from tinymce.models import HTMLField
 
 
 class Place(models.Model):
-    title = models.CharField('Название', max_length=100)
+    title = models.CharField('Название', max_length=100, unique=True)
     short_description = models.TextField('Краткое описание', blank=True)
     long_description = HTMLField('Полное описание', blank=True)
     latitude = models.FloatField('Широта')
@@ -15,7 +15,7 @@ class Place(models.Model):
         verbose_name_plural = 'места'
 
     def __str__(self):
-        return self.title        
+        return self.title
 
 
 class Image(models.Model):
