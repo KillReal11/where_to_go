@@ -7,7 +7,7 @@ from where_to_go.models import Place, Image
 
 
 def get_object_by_id(request, id):
-    place = get_object_or_404(Place, pk=id)
+    place = get_object_or_404(Place.objects.prefetch_related('images'), pk=id)
     images = place.images.all()
     paths = []
     for image in images:
