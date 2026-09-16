@@ -10,10 +10,8 @@ def get_object_by_id(request, id):
     place = get_object_or_404(Place.objects.prefetch_related('images'), pk=id)
     images = place.images.all()
     paths = []
-    for image in images:
-        path = str(image.file.url)
-        paths.append(path)
-    details_url = {
+    [paths.append(str(image.file.url)) for image in images]
+    place_details = {
         'title': place.title,
         'imgs': paths,
         'description_short':  place.short_description,
@@ -24,7 +22,7 @@ def get_object_by_id(request, id):
         }
     }
     return JsonResponse(
-        details_url,
+        place_details,
         safe=False,
         json_dumps_params={'ensure_ascii': False, 'indent': 2}
     )
@@ -34,7 +32,6 @@ def index(request):
     places = Place.objects.all()
     features = []
     for place in places:
-        print(place.title)
         feature = {
             'type': 'Feature',
             'geometry': {
@@ -48,7 +45,6 @@ def index(request):
             }
         }
         features.append(feature)
-    print(features)
 
     places_on_page = {
       'type': 'FeatureCollection',
