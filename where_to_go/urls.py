@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from debug_toolbar.toolbar import debug_toolbar_urls
 
-from where_to_go import views
+from places import views
 
 urlpatterns = (
     [
